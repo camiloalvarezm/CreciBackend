@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+
 //convertir el payload en JSON
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 
 //Configuracion global de rutas
 app.use(require('./routes/index'));
-
+app.use(express.static(__dirname + '/../public'));
 //Conexion a la base de datos
 mongoose.connect(process.env.URLDB, {
     useNewUrlParser: true,
