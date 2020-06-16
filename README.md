@@ -10,13 +10,11 @@ Require tener instalado [Node.js](https://nodejs.org/) v12.
 
 Clonar este repositorio, ingresar a la carpeta e instalar todas las depedencias usando el comando:
 
-`sh
-npm install
+`npm install
 `
 
 Ejecutar usando el siguiente comando: 
 
-`sh
-node ./server/server.js
+`node ./server/server.js
 `
 
