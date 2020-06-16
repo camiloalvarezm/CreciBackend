@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Usuario = require("../models/usuario");
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 app.post("/login", (req, res) => {
   let body = req.body;
@@ -17,7 +19,7 @@ app.post("/login", (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          mensaje: "Usuario o contraña incorrecto.",
+          mensaje: "Usuario o contraseña incorrecto.",
         },
       });
     }
@@ -25,7 +27,7 @@ app.post("/login", (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          mensaje: "Usuaro o contraseña incorrecto.",
+          mensaje: "Usuario o contraseña incorrecto.",
         },
       });
     }
@@ -34,7 +36,7 @@ app.post("/login", (req, res) => {
     });
     res.json({
       ok: true,
-      token,
+      token
     });
   });
 });

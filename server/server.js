@@ -5,7 +5,7 @@ const app = express();
 
 //convertir el payload en JSON
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Configuracion global de rutas
@@ -21,6 +21,6 @@ mongoose.connect(process.env.URLDB, {
     console.log('Base de datos ONLINE')
 });
 //Puerto de escucha
-app.listen(process.env.PORT, ()=>{
-	console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 });

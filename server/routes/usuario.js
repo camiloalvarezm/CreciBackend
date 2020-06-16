@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const _ = require("underscore");
 const Usuario = require("../models/usuario");
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 //crear usuario
 app.post("/usuario", (req, res) => {
@@ -50,11 +52,12 @@ app.get("/usuario", (req, res) => {
 
 app.put("/usuario/:id", (req, res) => {
   let id = req.params.id;
-  let body = req.body;
+  let body = _.pick(req.body, ['nombre', 'rol', 'password']);
+  console.log(body);
   if (body.password) {
     body.password = bcrypt.hashSync(body.password, 10);
   }
-
+  console.log(body);
   Usuario.findByIdAndUpdate(
     id,
     body,
