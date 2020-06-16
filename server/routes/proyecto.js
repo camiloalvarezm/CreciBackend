@@ -4,11 +4,13 @@ const _ = require("underscore");
 const app = express();
 const cors = require('cors');
 const { populate } = require("../models/proyecto");
+const { verificaToken } = require('../middleware/tokenVerify');
 app.use(cors());
+
 
 //crear proyecto
 
-app.post("/proyecto", (req, res) => {
+app.post("/proyecto", verificaToken, (req, res) => {
   let body = req.body;
   let proyecto = new Proyecto(body);
   proyecto.save((err, proyectoDB) => {
@@ -26,7 +28,7 @@ app.post("/proyecto", (req, res) => {
 });
 
 //obtener proyectos
-app.get("/proyecto", (req, res) => {
+app.get("/proyecto", verificaToken, (req, res) => {
   Proyecto.find(
     { estado: true },
     "nombre descripcion"
@@ -45,7 +47,7 @@ app.get("/proyecto", (req, res) => {
 });
 
 //actualizar proyecto
-app.put("/proyecto/:id", (req, res) => {
+app.put("/proyecto/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let usuario = req.body.usuario;
 
@@ -69,7 +71,7 @@ app.put("/proyecto/:id", (req, res) => {
 });
 
 //eliminar proyecto
-app.delete("/proyecto/:id", (req, res) => {
+app.delete("/proyecto/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let borrar = {
     estado: false,

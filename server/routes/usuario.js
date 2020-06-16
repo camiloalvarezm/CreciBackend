@@ -5,10 +5,11 @@ const _ = require("underscore");
 const Usuario = require("../models/usuario");
 const app = express();
 const cors = require('cors');
+const { verificaToken } = require('../middleware/tokenVerify');
 app.use(cors());
 
 //crear usuario
-app.post("/usuario", (req, res) => {
+app.post("/usuario", verificaToken, (req, res) => {
   let body = req.body;
   let usuario = new Usuario({
     nombre: body.nombre,
@@ -33,7 +34,7 @@ app.post("/usuario", (req, res) => {
 module.exports = app;
 
 //obtener usuarios
-app.get("/usuario", (req, res) => {
+app.get("/usuario", verificaToken, (req, res) => {
   Usuario.find({ estado: true }, "nombre email rol").exec((err, usuarios) => {
     if (err) {
       return res.status(400).json({
@@ -50,7 +51,7 @@ app.get("/usuario", (req, res) => {
 
 //actualizar usuarios
 
-app.put("/usuario/:id", (req, res) => {
+app.put("/usuario/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let body = _.pick(req.body, ['nombre', 'rol', 'password']);
   console.log(body);
@@ -78,7 +79,7 @@ app.put("/usuario/:id", (req, res) => {
 });
 
 //eliminar usuario
-app.delete("/usuario/:id", (req, res) => {
+app.delete("/usuario/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let borrar = {
     estado: false,

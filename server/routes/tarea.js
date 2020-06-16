@@ -3,11 +3,12 @@ const Tarea = require("../models/tarea");
 const _ = require("underscore");
 const app = express();
 const cors = require('cors');
+const { verificaToken } = require('../middleware/tokenVerify');
 app.use(cors());
 
 //crear tarea
 
-app.post("/tarea", (req, res) => {
+app.post("/tarea", verificaToken, (req, res) => {
   let body = req.body;
   let tarea = new Tarea(body);
   tarea.save((err, tareaDB) => {
@@ -25,7 +26,7 @@ app.post("/tarea", (req, res) => {
 });
 
 //obtener tareas
-app.get("/tarea", (req, res) => {
+app.get("/tarea", verificaToken, (req, res) => {
   Tarea.find(
     { estado: true }
   ).populate('usuarios', 'nombre').exec((err, tareas) => {
@@ -43,7 +44,7 @@ app.get("/tarea", (req, res) => {
 });
 
 //actualizar tarea
-app.put("/tarea/:id", (req, res) => {
+app.put("/tarea/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let body = _.pick(req.body, [
     "nombre",
@@ -76,7 +77,7 @@ app.put("/tarea/:id", (req, res) => {
 });
 
 //eliminar tarea
-app.delete("/tarea/:id", (req, res) => {
+app.delete("/tarea/:id", verificaToken, (req, res) => {
   let id = req.params.id;
   let borrar = {
     estado: false,
