@@ -1,6 +1,7 @@
 # Creci API
 
 - Esta API está desarrollada en NodeJS y MongoDB.
+- Puede consumirse directamente desde el siguiente enlace: [Creci API](https://creci-api.herokuapp.com/)
 
 # Funcionamiento local
 
